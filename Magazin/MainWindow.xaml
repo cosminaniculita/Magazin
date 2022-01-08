@@ -1,0 +1,100 @@
+﻿<Window
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Magazin"
+        xmlns:Extensie="clr-namespace:Extensie;assembly=Extensie" x:Class="Magazin.MainWindow"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800" Loaded="Window_Loaded">
+    <Window.Resources>
+        <CollectionViewSource x:Key="comenziViewSource" d:DesignSource="{d:DesignInstance {x:Type Extensie:Comenzi}, CreateList=True}"/>
+        <CollectionViewSource x:Key="produseViewSource" d:DesignSource="{d:DesignInstance {x:Type Extensie:Produse}, CreateList=True}"/>
+        <CollectionViewSource x:Key="clientiViewSource" d:DesignSource="{d:DesignInstance {x:Type Extensie:Clienti}, CreateList=True}"/>
+    </Window.Resources>
+    <Grid DataContext="{StaticResource clientiViewSource}">
+        <TabControl x:Name="tbCtrlAutoLot" HorizontalAlignment="Left" Height="249" Margin="10,10,0,0" VerticalAlignment="Top" Width="772" SelectedIndex="{Binding Mode=OneWay}">
+
+
+            <TabItem x:Name="tbcPoduse" Header="Produse" Height="22" VerticalAlignment="Top">
+
+                <Grid Background="#FFE5E5E5" DataContext="{StaticResource produseViewSource}">
+                    <DataGrid x:Name="produseDataGrid" AutoGenerateColumns="False" EnableRowVirtualization="True" ItemsSource="{Binding}" Margin="10,10,366,77" RowDetailsVisibilityMode="VisibleWhenSelected">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn x:Name="culoareColumn" Binding="{Binding Culoare}" Header="Culoare" Width="SizeToHeader"/>
+                            <DataGridTextColumn x:Name="datacumparariColumn" Binding="{Binding Datacumparari}" Header="Datacumparari" Width="SizeToHeader"/>
+                            <DataGridTextColumn x:Name="idprodusColumn1" Binding="{Binding Idprodus}" Header="Idprodus" Width="SizeToHeader"/>
+                            <DataGridTextColumn x:Name="modelColumn" Binding="{Binding Model}" Header="Model" Width="SizeToHeader"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                    <Grid x:Name="grid2" HorizontalAlignment="Left" Margin="450,58,0,0" VerticalAlignment="Top">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <Label Content="Culoare:" Grid.Column="0" HorizontalAlignment="Left" Margin="3" Grid.Row="0" VerticalAlignment="Center"/>
+                        <TextBox x:Name="culoareTextBox" Grid.Column="1" HorizontalAlignment="Left" Height="23" Margin="3" Grid.Row="0" Text="{Binding Culoare, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" VerticalAlignment="Center" Width="120"/>
+                        <Label Content="Datacumparari:" Grid.Column="0" HorizontalAlignment="Left" Margin="3" Grid.Row="1" VerticalAlignment="Center"/>
+                        <TextBox x:Name="datacumparariTextBox" Grid.Column="1" HorizontalAlignment="Left" Height="23" Margin="3" Grid.Row="1" Text="{Binding Datacumparari, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" VerticalAlignment="Center" Width="120"/>
+                        <Label Content="Idprodus:" Grid.Column="0" HorizontalAlignment="Left" Margin="3" Grid.Row="2" VerticalAlignment="Center"/>
+                        <TextBox x:Name="idprodusTextBox1" Grid.Column="1" HorizontalAlignment="Left" Height="23" Margin="3" Grid.Row="2" Text="{Binding Idprodus, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" VerticalAlignment="Center" Width="120"/>
+                        <Label Content="Model:" Grid.Column="0" HorizontalAlignment="Left" Margin="3" Grid.Row="3" VerticalAlignment="Center"/>
+                        <TextBox x:Name="modelTextBox" Grid.Column="1" HorizontalAlignment="Left" Height="23" Margin="3" Grid.Row="3" Text="{Binding Model, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" VerticalAlignment="Center" Width="120"/>
+                    </Grid>
+                </Grid>
+            </TabItem>
+            <TabItem x:Name="tbcClienti" Header="Clienti">
+                <Grid Background="#FFE5E5E5" DataContext="{StaticResource comenziViewSource}">
+                    <DataGrid x:Name="clientiDataGrid" AutoGenerateColumns="False" EnableRowVirtualization="True" ItemsSource="{Binding Source={StaticResource clientiViewSource}}" Margin="10,10,356,9" RowDetailsVisibilityMode="VisibleWhenSelected">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn x:Name="adresa_mailColumn" Binding="{Binding Adresa_mail}" Header="Adresa mail" Width="SizeToHeader"/>
+                            <DataGridTextColumn x:Name="idclientColumn" Binding="{Binding Idclient}" Header="Idclient" Width="SizeToHeader"/>
+                            <DataGridTextColumn x:Name="numeColumn" Binding="{Binding Nume}" Header="Nume" Width="SizeToHeader"/>
+                            <DataGridTextColumn x:Name="prenumeColumn" Binding="{Binding Prenume}" Header="Prenume" Width="SizeToHeader"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                    <Grid x:Name="grid1" DataContext="{StaticResource clientiViewSource}" HorizontalAlignment="Left" Margin="464,36,0,0" VerticalAlignment="Top">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <Label Content="Adresa mail:" Grid.Column="0" HorizontalAlignment="Left" Margin="3" Grid.Row="0" VerticalAlignment="Center"/>
+                        <TextBox x:Name="adresa_mailTextBox" Grid.Column="1" HorizontalAlignment="Left" Height="23" Margin="3" Grid.Row="0" Text="{Binding Adresa_mail, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" VerticalAlignment="Center" Width="120"/>
+                        <Label Content="Idclient:" Grid.Column="0" HorizontalAlignment="Left" Margin="3" Grid.Row="1" VerticalAlignment="Center"/>
+                        <TextBox x:Name="idclientTextBox" Grid.Column="1" HorizontalAlignment="Left" Height="23" Margin="3" Grid.Row="1" Text="{Binding Idclient, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" VerticalAlignment="Center" Width="120"/>
+                        <Label Content="Nume:" Grid.Column="0" HorizontalAlignment="Left" Margin="3" Grid.Row="2" VerticalAlignment="Center"/>
+                        <TextBox x:Name="numeTextBox" Grid.Column="1" HorizontalAlignment="Left" Height="23" Margin="3" Grid.Row="2" Text="{Binding Nume, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" VerticalAlignment="Center" Width="120"/>
+                        <Label Content="Prenume:" Grid.Column="0" HorizontalAlignment="Left" Margin="3" Grid.Row="3" VerticalAlignment="Center"/>
+                        <TextBox x:Name="prenumeTextBox" Grid.Column="1" HorizontalAlignment="Left" Height="23" Margin="3" Grid.Row="3" Text="{Binding Prenume, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" VerticalAlignment="Center" Width="120"/>
+                    </Grid>
+                </Grid>
+            </TabItem>
+        </TabControl>
+        <GroupBox x:Name="gnOperatiuni" Header="Operatiuni" Margin="34,300,586,10">
+            <StackPanel>
+                <Button x:Name="btnAdauga" Content="Adauga" Click="btnAdauga_Click"/>
+                <Button x:Name="btnModifica" Content="Modifica" Click="btnModifica_Click"/>
+                <Button x:Name="btnSterge" Content="Sterge" Click="btnSterge_Click"/>
+            </StackPanel>
+        </GroupBox>
+        <GroupBox x:Name="gbActiuni" Header="Actiuni" Margin="308,316,316,26">
+            <StackPanel>
+                <Button x:Name="btnSalvare" Content="Salvare" Click="btnSalvare_Click"/>
+                <Button x:Name="btnIesire" Content="Iesire" Click="btnIesire_Click"/>
+            </StackPanel>
+        </GroupBox>
+
+    </Grid>
+</Window>
